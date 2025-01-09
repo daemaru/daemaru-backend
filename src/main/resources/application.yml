@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demaru
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3305/punch?characterEncoding=UTF-8&serverTimezone=UTC}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+
+  jpa:
+    database: mysql
+
