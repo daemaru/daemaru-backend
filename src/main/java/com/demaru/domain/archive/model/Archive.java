@@ -1,5 +1,6 @@
 package com.demaru.domain.archive.model;
 
+import com.demaru.domain.schedule.domain.Schedule;
 import com.demaru.domain.user.domain.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +22,9 @@ public class Archive {
     @Column(nullable = false, columnDefinition = "LONG")
     private long id;
 
-//    TODO : 1대다 연결
-//    @ManyToOne(optional = false, targetEntity = Schedule.class)
-//    @JoinColumn(name = "id", referencedColumnName = "schedule_id")
-//    private Schedule schedule;
+    @ManyToOne(optional = false, targetEntity = Schedule.class)
+    @JoinColumn(name = "id", referencedColumnName = "schedule_id")
+    private Schedule schedule;
 
     @ManyToOne(optional = false, targetEntity = User.class)
     @JoinColumn(name = "id", referencedColumnName = "teacher_id")
