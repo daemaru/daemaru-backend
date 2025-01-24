@@ -1,16 +1,12 @@
 package com.demaru.domain.user.domain;
 
-import com.demaru.domain.user.domain.roleEnum.Role;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -30,17 +26,7 @@ public class User {
     @Column(nullable = false)
     private String username;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
 
     @Column(nullable = false)
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 }
