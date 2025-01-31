@@ -17,15 +17,15 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(name = "user_id", columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID userId;
 
-    @Column(name = "account_id", nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 20)
     private String accountId;
 
     @Column(nullable = false)
     private String username;
-    
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 40)
     private String password;
 }
