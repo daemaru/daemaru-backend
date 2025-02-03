@@ -1,16 +1,12 @@
 package com.demaru.domain.user.domain;
 
-import com.demaru.domain.user.domain.roleEnum.Role;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -21,26 +17,15 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(name = "user_id", columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID userId;
 
-    @Column(name = "account_id", nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 20)
     private String accountId;
 
     @Column(nullable = false)
     private String username;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
+    @Column(nullable = false, length = 40)
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 }
