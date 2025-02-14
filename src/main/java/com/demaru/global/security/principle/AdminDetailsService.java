@@ -1,7 +1,7 @@
 package com.demaru.global.security.principle;
 
-import com.demaru.domain.user.domain.User;
-import com.demaru.domain.user.domain.persistence.UserRepository;
+import com.demaru.domain.user.domain.Admin;
+import com.demaru.domain.user.domain.persistence.AdminRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AdminDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findById(UUID.fromString(username))
+        Admin admin = adminRepository.findById(UUID.fromString(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        return new AdminDetails(user.getUserId());
+        return new AdminDetails(admin.getId());
     }
 }
