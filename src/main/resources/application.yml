@@ -11,3 +11,6 @@ spring:
   jpa:
     database: mysql
 
+
+jwt:
+  secret: ${SECRET_KEY:s83H!5&84@WM237&e2#37TH@7em^26$1#O61!e1422Y}
