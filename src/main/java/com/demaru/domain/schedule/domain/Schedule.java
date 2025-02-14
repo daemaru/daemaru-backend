@@ -1,7 +1,7 @@
 package com.demaru.domain.schedule.domain;
 
 import lombok.*;
-
+import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Table(name = "schedule")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class Schedule {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(nullable = false, columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(nullable = false, length = 50)
@@ -29,8 +30,8 @@ public class Schedule {
     @Column(nullable = false)
     private LocalDate end;
 
-    @Column(nullable = false)
-    private short period;
+    @Column(nullable = false, length = 20)
+    private String period;
 
     @Column(nullable = false, length = 50)
     private String location;

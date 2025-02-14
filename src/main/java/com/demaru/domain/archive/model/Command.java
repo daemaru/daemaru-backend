@@ -1,6 +1,6 @@
 package com.demaru.domain.archive.model;
 
-public enum Option {
+public enum Command {
     CREATE,
     UPDATE,
     DELETE;
