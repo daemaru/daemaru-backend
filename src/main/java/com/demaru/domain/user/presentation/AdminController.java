@@ -2,6 +2,7 @@ package com.demaru.domain.user.presentation;
 
 import com.demaru.domain.user.domain.persistence.AdminRepository;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
+import com.demaru.domain.user.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,10 +17,11 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
-    private final AdminRepository adminRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final AdminService adminService;
+
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
+        adminService.signUp(signUpRequest);
         return ResponseEntity.ok("성공");
     }
 }
