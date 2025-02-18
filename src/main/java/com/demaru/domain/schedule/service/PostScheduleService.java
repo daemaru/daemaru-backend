@@ -44,7 +44,7 @@ public class PostScheduleService {
                 .admin(currentAdmin)
                 .schedule(currentSchedule)
                 .command(Command.CREATE)
-                .context(request.toContext())
+                .context(request.toContext(securityService.getContextComma()))
                 .build();
 
         archiveRepository.save(archive);

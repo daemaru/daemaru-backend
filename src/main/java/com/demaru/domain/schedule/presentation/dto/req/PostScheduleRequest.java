@@ -17,13 +17,13 @@ public class PostScheduleRequest {
     private final String description = "";
     @NotBlank private final String target;
 
-    public String toContext() {
-        return "title:" + title
-                + ",start:" + start
-                + ",end:" + end
-                + ",period:" + period
-                + ",location:" + location
-                + ",description:" + description
-                + ",target:" + target;
+    public String toContext(String comma) {
+        return "title:" + title + comma
+                + "start:" + start + comma
+                + "end:" + end + comma
+                + "period:" + period + comma
+                + "location:" + location + comma
+                + "description:" + description + comma
+                + "target:" + target;
     }
 }
