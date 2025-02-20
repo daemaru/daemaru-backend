@@ -25,17 +25,17 @@ public class PostScheduleService {
     private final AdminRepository adminRepository;
 
     public PostScheduleResponse execute(PostScheduleRequest request) {
-        Schedule schedule = Schedule.builder()
-                .title(request.getTitle())
-                .start(request.getStart())
-                .end(request.getEnd())
-                .period(request.getPeriod())
-                .location(request.getLocation())
-                .description(request.getDescription())
-                .target(request.getTarget())
-                .build();
-
-        Schedule currentSchedule = scheduleRepository.save(schedule);
+        Schedule currentSchedule = scheduleRepository.save(
+                Schedule.builder()
+                    .title(request.getTitle())
+                    .start(request.getStart())
+                    .end(request.getEnd())
+                    .period(request.getPeriod())
+                    .location(request.getLocation())
+                    .description(request.getDescription())
+                    .target(request.getTarget())
+                    .build()
+        );
 
         Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId())
                 .orElseThrow(RuntimeException::new); // 404 Teacher-Not-Found
