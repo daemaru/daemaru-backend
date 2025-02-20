@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class JwtProvider {
-    @Value("jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;
 
     public String createAccessToken(UUID userId) {
