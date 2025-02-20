@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.UUID;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "schedule")
@@ -41,4 +42,8 @@ public class Schedule {
 
     @Column(nullable = false, length = 30)
     private String target;
+
+    @ColumnDefault("FALSE")
+    @Column(nullable = false)
+    private Boolean isDeleted;
 }
