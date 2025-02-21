@@ -28,19 +28,19 @@ public class ScheduleController {
     private final DeleteScheduleService deleteScheduleService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/post")
+    @PostMapping
     public PostScheduleResponse postSchedule(@Valid @RequestBody PostScheduleRequest request) {
         return postScheduleService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{schedule_id}/patch")
+    @PatchMapping("/{schedule_id}")
     public void modifySchedule(@Valid @RequestBody ModifyScheduleRequest request, @PathVariable UUID schedule_id) {
         modifyScheduleService.execute(request, schedule_id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{schedule_id}/delete")
+    @DeleteMapping("/{schedule_id}")
     public void deleteSchedule(@PathVariable UUID schedule_id) {
         deleteScheduleService.execute(schedule_id);
     }
