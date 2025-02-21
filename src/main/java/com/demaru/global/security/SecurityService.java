@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SecurityService {
-    @Value("context.comma")
+    @Value("${context.comma}")
     private String comma;
 
     public UUID getCurrentAdminId() {

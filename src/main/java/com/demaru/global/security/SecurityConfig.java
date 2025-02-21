@@ -42,9 +42,9 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/archives/get").permitAll()
 
                         .antMatchers(HttpMethod.POST, "/login").permitAll()
-                        .antMatchers(HttpMethod.POST, "/schedules/post").permitAll()
-                        .antMatchers(HttpMethod.PATCH, "/schedules/patch").authenticated()
-                        .antMatchers(HttpMethod.DELETE, "/schedules/delete").authenticated()
+                        .antMatchers(HttpMethod.POST, "/schedules/post").authenticated()
+                        .antMatchers(HttpMethod.PATCH, "/schedules/{schedule_id}/patch").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/schedules/{schedule_id}/delete").authenticated()
 
                         .anyRequest().denyAll()
                 )
