@@ -1,6 +1,6 @@
 package com.demaru.domain.archive.model;
 
-import com.demaru.domain.schedule.domain.Schedule;
+import com.demaru.domain.schedule.model.Schedule;
 import com.demaru.domain.user.domain.Admin;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "archive")
+@Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Archive {
 
     @Id

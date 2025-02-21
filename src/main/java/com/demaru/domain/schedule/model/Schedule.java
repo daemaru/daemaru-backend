@@ -1,4 +1,4 @@
-package com.demaru.domain.schedule.domain;
+package com.demaru.domain.schedule.model;
 
 import lombok.*;
 import javax.persistence.Table;

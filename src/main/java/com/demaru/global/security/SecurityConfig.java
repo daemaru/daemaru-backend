@@ -38,13 +38,13 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests((authz) -> authz
-                        .antMatchers(HttpMethod.GET, "/public/schedule/get").permitAll()
-                        .antMatchers(HttpMethod.GET, "/public/archive/get").permitAll()
+                        .antMatchers(HttpMethod.GET, "/schedules/get").permitAll()
+                        .antMatchers(HttpMethod.GET, "/archives/get").permitAll()
 
-                        .antMatchers(HttpMethod.POST, "/admin/login").authenticated()
-                        .antMatchers(HttpMethod.POST, "/admin/schedule/post").authenticated()
-                        .antMatchers(HttpMethod.PATCH, "/admin/schedule/patch").authenticated()
-                        .antMatchers(HttpMethod.DELETE, "/admin/schedule/delete").authenticated()
+                        .antMatchers(HttpMethod.POST, "/login").permitAll()
+                        .antMatchers(HttpMethod.POST, "/schedules/post").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/schedules/patch").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/schedules/delete").authenticated()
 
                         .anyRequest().denyAll()
                 )
