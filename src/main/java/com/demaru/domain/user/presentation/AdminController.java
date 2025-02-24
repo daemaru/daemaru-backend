@@ -1,6 +1,7 @@
 package com.demaru.domain.user.presentation;
 
 import com.demaru.domain.user.presentation.dto.LoginRequest;
+import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
 import com.demaru.domain.user.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@Valid @RequestBody LoginRequest request) {
+    public LoginResponse login(@Valid @RequestBody LoginRequest request) {
         return adminService.logIn(request.getAccountId(), request.getPassword());
     }
 }

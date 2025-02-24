@@ -2,6 +2,7 @@ package com.demaru.domain.user.service;
 
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
 import com.demaru.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class AdminService {
 
 
     @Transactional(readOnly = true)
-    public Map<String, String> logIn(String accountId, String password) {
+    public LoginResponse logIn(String accountId, String password) {
         Admin admin = adminRepository.findByAccountId(accountId)
                 .orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다."));
 
@@ -42,6 +43,6 @@ public class AdminService {
         }
 
         String accessToken = jwtProvider.createAccessToken(admin.getId());
-        return Map.of("accessToken", accessToken);
+        return new LoginResponse(accessToken);
     }
 }
