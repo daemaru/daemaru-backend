@@ -23,6 +23,6 @@ public class Admin {
     @Column(nullable = false, unique = true, length = 20)
     private String accountId;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 255)
     private String password;
 }
