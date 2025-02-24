@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeRequests((authz) -> authz
                         .antMatchers("/admins/signup").permitAll()
 
-                        .antMatchers(HttpMethod.POST, "/login").permitAll()
+                        .antMatchers(HttpMethod.POST, "/admins/login").permitAll()
 
                         .antMatchers(HttpMethod.GET, "/schedules").permitAll()
                         .antMatchers(HttpMethod.POST, "/schedules").authenticated()
