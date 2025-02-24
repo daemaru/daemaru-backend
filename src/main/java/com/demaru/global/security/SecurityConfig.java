@@ -38,6 +38,8 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests((authz) -> authz
+                        .antMatchers("/admins/signup").permitAll()
+
                         .antMatchers(HttpMethod.POST, "/login").permitAll()
 
                         .antMatchers(HttpMethod.GET, "/schedules").permitAll()
