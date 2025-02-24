@@ -2,13 +2,15 @@ package com.demaru.domain.user.service;
 
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
-import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
 import com.demaru.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +31,9 @@ public class AdminService {
         adminRepository.save(admin);
     }
 
+
     @Transactional(readOnly = true)
-    public LoginResponse logIn(String accountId, String password) {
+    public Map<String, String> logIn(String accountId, String password) {
         Admin admin = adminRepository.findByAccountId(accountId)
                 .orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다."));
 
@@ -39,6 +42,6 @@ public class AdminService {
         }
 
         String accessToken = jwtProvider.createAccessToken(admin.getId());
-        return new LoginResponse(accessToken);
+        return Map.of("accessToken", accessToken);
     }
 }

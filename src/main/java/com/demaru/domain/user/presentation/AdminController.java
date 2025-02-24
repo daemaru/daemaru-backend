@@ -1,7 +1,6 @@
 package com.demaru.domain.user.presentation;
 
 import com.demaru.domain.user.presentation.dto.LoginRequest;
-import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
 import com.demaru.domain.user.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admins")
@@ -26,7 +26,7 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(adminService.logIn(request.getAccountId(), request.getPassword()));
     }
 }
