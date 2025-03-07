@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class JwtParser {
-    @Value("jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;
 
     private final AdminDetailsService adminDetailsService;
@@ -27,7 +27,7 @@ public class JwtParser {
     public Authentication getAuthentication(String token) {
         Jws<Claims> claims = getClaims(token);
 
-        if (claims.getHeader().get(Header.JWT_TYPE) != "Access") throw new RuntimeException("Invalid token");
+        if (!claims.getHeader().get(Header.JWT_TYPE).equals("Access")) throw new RuntimeException("Invalid token");
 
         UserDetails userDetails = getDetails(claims.getBody());
 
