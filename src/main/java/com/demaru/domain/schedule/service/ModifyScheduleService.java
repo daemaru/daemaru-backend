@@ -3,11 +3,13 @@ package com.demaru.domain.schedule.service;
 import com.demaru.domain.archive.model.Archive;
 import com.demaru.domain.archive.model.Command;
 import com.demaru.domain.archive.persistence.ArchiveRepository;
+import com.demaru.domain.schedule.exception.ScheduleNotFoundException;
 import com.demaru.domain.schedule.model.Schedule;
 import com.demaru.domain.schedule.persistence.ScheduleRepository;
 import com.demaru.domain.schedule.presentation.dto.req.ModifyScheduleRequest;
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.exception.TeacherNotFoundException;
 import com.demaru.global.security.SecurityService;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,8 +27,10 @@ public class ModifyScheduleService {
     private final SecurityService securityService;
 
     public void execute(ModifyScheduleRequest request, UUID scheduleId) {
-        Schedule currentSchedule = scheduleRepository.findById(scheduleId).orElseThrow();
-        Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId()).orElseThrow();
+        Schedule currentSchedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
+        Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId())
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         currentSchedule = scheduleRepository.save(
                 Schedule.builder()
