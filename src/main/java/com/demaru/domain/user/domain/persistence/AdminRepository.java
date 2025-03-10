@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, UUID> {
     Optional<Admin> findByAccountId(String accountId);
+
+    boolean existsByAccountId(String accountId);
 }

@@ -1,5 +1,6 @@
 package com.demaru.global.security.jwt;
 
+import com.demaru.global.error.InternalServerErrorException;
 import com.demaru.global.security.exception.InvalidTokenException;
 import com.demaru.global.security.exception.TokenExpiredException;
 import com.demaru.global.security.principle.AdminDetails;
@@ -44,8 +45,10 @@ public class JwtParser {
                     .parseClaimsJws(token);
         }catch (ExpiredJwtException e) {
             throw TokenExpiredException.EXCEPTION;
-        }catch (Exception e) {
+        }catch (InvalidClaimException e) {
             throw InvalidTokenException.EXCEPTION;
+        }catch (Exception e) {
+            throw InternalServerErrorException.EXCEPTION;
         }
     }
 

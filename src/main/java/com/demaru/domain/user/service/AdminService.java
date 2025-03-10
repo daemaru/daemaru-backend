@@ -2,6 +2,7 @@ package com.demaru.domain.user.service;
 
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.exception.ConflictAccountIdException;
 import com.demaru.domain.user.exception.IdOrPasswordIncorrectException;
 import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
@@ -26,6 +27,8 @@ public class AdminService {
         String encodedPassword = passwordEncoder.encode(signUpRequest.getPassword());
 
         System.out.println(encodedPassword);
+
+        if (adminRepository.existsByAccountId(signUpRequest.getAccountId())) throw ConflictAccountIdException.EXCEPTION;
 
         Admin admin = Admin.builder()
                 .accountId(signUpRequest.getAccountId())
