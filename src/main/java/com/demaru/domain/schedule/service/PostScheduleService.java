@@ -9,6 +9,7 @@ import com.demaru.domain.schedule.presentation.dto.req.PostScheduleRequest;
 import com.demaru.domain.schedule.presentation.dto.res.PostScheduleResponse;
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.exception.TeacherNotFoundException;
 import com.demaru.global.security.SecurityService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class PostScheduleService {
         );
 
         Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId())
-                .orElseThrow(RuntimeException::new); // 404 Teacher-Not-Found
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         Archive archive = Archive.builder()
                 .admin(currentAdmin)

@@ -3,10 +3,12 @@ package com.demaru.domain.schedule.service;
 import com.demaru.domain.archive.model.Archive;
 import com.demaru.domain.archive.model.Command;
 import com.demaru.domain.archive.persistence.ArchiveRepository;
+import com.demaru.domain.schedule.exception.ScheduleNotFoundException;
 import com.demaru.domain.schedule.model.Schedule;
 import com.demaru.domain.schedule.persistence.ScheduleRepository;
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.exception.TeacherNotFoundException;
 import com.demaru.global.security.SecurityService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,10 @@ public class DeleteScheduleService {
     private final SecurityService securityService;
 
     public void execute(UUID scheduleId) {
-        Schedule currentSchedule = scheduleRepository.findById(scheduleId).orElseThrow(); // 404-Schedule-Not-Found
-        Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId()).orElseThrow(); // 404-Teacher-Not-Found
+        Schedule currentSchedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
+        Admin currentAdmin = adminRepository.findById(securityService.getCurrentAdminId())
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         currentSchedule = scheduleRepository.save(
                 Schedule.builder()

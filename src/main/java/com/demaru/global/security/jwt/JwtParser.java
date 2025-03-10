@@ -1,5 +1,7 @@
 package com.demaru.global.security.jwt;
 
+import com.demaru.global.security.exception.InvalidTokenException;
+import com.demaru.global.security.exception.TokenExpiredException;
 import com.demaru.global.security.principle.AdminDetails;
 import com.demaru.global.security.principle.AdminDetailsService;
 import io.jsonwebtoken.Claims;
@@ -27,7 +29,7 @@ public class JwtParser {
     public Authentication getAuthentication(String token) {
         Jws<Claims> claims = getClaims(token);
 
-        if (!claims.getHeader().get(Header.JWT_TYPE).equals("Access")) throw new RuntimeException("Invalid token");
+        if (!claims.getHeader().get(Header.JWT_TYPE).equals("Access")) throw InvalidTokenException.EXCEPTION;
 
         UserDetails userDetails = getDetails(claims.getBody());
 
@@ -40,12 +42,10 @@ public class JwtParser {
                     .setSigningKey(secret)
                     .build()
                     .parseClaimsJws(token);
+        }catch (ExpiredJwtException e) {
+            throw TokenExpiredException.EXCEPTION;
         }catch (Exception e) {
-            if(e instanceof InvalidClaimException) throw e;
-            if(e instanceof ExpiredJwtException) throw e;
-            if(e instanceof JwtException) throw e;
-
-            throw new RuntimeException("Internal");
+            throw InvalidTokenException.EXCEPTION;
         }
     }
 

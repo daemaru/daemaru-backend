@@ -2,6 +2,7 @@ package com.demaru.domain.user.service;
 
 import com.demaru.domain.user.domain.Admin;
 import com.demaru.domain.user.domain.persistence.AdminRepository;
+import com.demaru.domain.user.exception.IdOrPasswordIncorrectException;
 import com.demaru.domain.user.presentation.dto.LoginResponse;
 import com.demaru.domain.user.presentation.dto.SignUpRequest;
 import com.demaru.global.security.jwt.JwtProvider;
@@ -24,6 +25,8 @@ public class AdminService {
     public void signUp(SignUpRequest signUpRequest) {
         String encodedPassword = passwordEncoder.encode(signUpRequest.getPassword());
 
+        System.out.println(encodedPassword);
+
         Admin admin = Admin.builder()
                 .accountId(signUpRequest.getAccountId())
                 .password(encodedPassword)
@@ -36,10 +39,10 @@ public class AdminService {
     @Transactional(readOnly = true)
     public LoginResponse logIn(String accountId, String password) {
         Admin admin = adminRepository.findByAccountId(accountId)
-                .orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다."));
+                .orElseThrow(() -> IdOrPasswordIncorrectException.EXCEPTION);
 
         if (!passwordEncoder.matches(password, admin.getPassword())) {
-            throw new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다.");
+            throw IdOrPasswordIncorrectException.EXCEPTION;
         }
 
         String accessToken = jwtProvider.createAccessToken(admin.getId());
