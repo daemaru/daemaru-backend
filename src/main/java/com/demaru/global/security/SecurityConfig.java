@@ -1,7 +1,9 @@
 package com.demaru.global.security;
 
+import com.demaru.global.error.GlobalExceptionFilter;
 import com.demaru.global.security.jwt.JwtFilter;
 import com.demaru.global.security.jwt.JwtParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtParser jwtParser;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -52,7 +53,8 @@ public class SecurityConfig {
                         .anyRequest().denyAll()
                 )
 
-                .addFilterBefore(new JwtFilter(jwtParser), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtFilter(jwtParser), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class);
 
         return http.build();
     }
