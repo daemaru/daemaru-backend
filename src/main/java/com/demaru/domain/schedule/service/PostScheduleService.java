@@ -35,6 +35,7 @@ public class PostScheduleService {
                     .location(request.getLocation())
                     .description(request.getDescription())
                     .target(request.getTarget())
+                    .isDeleted(false)
                     .build()
         );
 
